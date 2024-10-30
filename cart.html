@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Booktropolis</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+    
+        <div class="horizontal-nav">
+    
+            <ul>
+                <li><a href="index.html" class="active" style="color: black; " >HOME</a></li>
+                <li><a style="color: black;">CATAGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black;">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black;">Adventure</a></li>
+                        </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black;  ">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black; ">CONTACT US</a></li>
+                <li><a href="account.html" style="color: black;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black; background-color: cyan;"><img src="Images/Cart.jpg" height="20px"></a></li>                
+            </ul>
+            <input type="text" id="searchInput" onchange="displayFilteredItems()">
+    
+        </div>
+
+        <input type="text" id="searchInputPH" onchange="displayFilteredItems()">
+
+        <div id="myNav" class="overlay">
+
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a>CATAGORIES</a>
+            <a href="scifi.html">Sci-Fi</a>
+            <a href="adventure.html">Adventure</a>
+            <a href="about-us.html">ABOUT US</a>
+            <a href="contact-us.html">CONTACT US</a>
+            <a href="account.html">ACCOUNT</a>
+            <a href="cart.html">CART</a>
+        </div>
+        </div>
+
+    </nav>
+        <script>
+
+            function openNav() {
+                document.getElementById("myNav").style.display = "block";
+            }
+        
+        
+            function closeNav() {
+                document.getElementById("myNav").style.display = "none";
+            }
+        
+        </script>
+
+
+
+    
+    <main style="background-image: url('spacebackgrount.jpg');">
+        
+
+
+
+             
+        <div id="shopping-cart">
+            <h2>ITEMS IN <span style='font-size: 22px;'>&#128722;</span></h2>  
+            <p style="font-weight: bold;">TOTAL: $<span id="totalPrice">0.0</span></p>
+            <table id="itemTable">                
+                <tr>
+                    <th style="width:50%">Item</th>
+                    <th style="width:10%">Quantity</th>
+                    <th style="width:30%">Action</th>
+                    <th style="width:20%">Price</th>
+                    
+                  </tr>
+            </table>
+
+
+            
+            <div class="purchase-section">
+                <button class="purchase-button" onclick="purchaseItem()">Purchase</button>
+           
+        </div>
+
+        <!-- Contact Us Info -->
+        <div class="contact-section">
+            <h2>Contact us info:</h2>
+            <p>Contact Number: +123 456 7890</p>
+            <p>Contact Email: info@website.com</p>
+                    
+        </div>
+        </div>
+
+        <script src="Books.js"></script>  
+            
+        <script>
+            //------------------------------------------------------
+            //Show the shopping-cart
+			document.getElementById("shopping-cart").style.display = 'block';
+
+            //------------------------------------------------------
+            //Update the itemInCart
+            let itemInCart = [];
+            //Get itemID is passed from the bookpage.html
+            //let itemID = localStorage.getItem('addToCartItemID'); 
+            let itemID = 0;
+            if (localStorage.getItem('addToCartItemID') == null || localStorage.getItem('addToCartItemID') == "") {
+                itemID = 0;
+            } else {
+                itemID = localStorage.getItem('addToCartItemID'); 
+            }
+			// Retrieving the items in the cart
+            if (localStorage.getItem("savedIteminShoppingCart") == null || localStorage.getItem("savedIteminShoppingCart") == "") {
+                itemInCart = [];                 
+            } else {
+                // Retrieved existing items
+                itemInCart = JSON.parse(localStorage.getItem("savedIteminShoppingCart"));	
+            }
+            //Check if id is existing in the 'itemInCart'. If yes, just increase the quantity; otherwise add a new row at the end.
+            let alreadyExist = false;
+            for (let index = 0; index < itemInCart.length; index++) {
+                if (itemInCart[index].id == itemID) {
+                    itemInCart[index].quantity = itemInCart[index].quantity + 1;
+                    alreadyExist = true;
+                }
+            }
+            if (!alreadyExist && (itemID != 0)) {
+                itemInCart.push({id: itemID, quantity: 1});
+            }
+            //Display updated itemInCart
+            displayCart();   
+            //Clear the 'addToCartItemID'
+            localStorage.setItem('addToCartItemID', 0);
+		
+			//----------------------------------------
+            //let totalPrice = 0.0;
+            function displayCart() {
+                //--------------------  
+                //Update the item table              
+                let itemTable = document.getElementById("itemTable");
+                 //Delete all rows except the th
+                for(var i = 1; i<itemTable.rows.length;){
+                    itemTable.deleteRow(i);
+                }
+                //Update the item table
+                let totalPrice = 0;
+                for (let index = 0; index < itemInCart.length; index++) {
+                    //Create a row using the inserRow() method and specify the index where you want to add the row
+                    let row = itemTable.insertRow(-1); // We are adding at the end                
+                    //Create table cells: arr.findIndex(p => p.property == someValue)
+                    row.insertCell(0).innerText = bookitems.find(item => item.id == itemInCart[index].id).title;
+                    row.insertCell(1).innerHTML = itemInCart[index].quantity;
+                    row.insertCell(2).innerHTML = '<button onclick="removeItem(' + itemInCart[index].id + ')">REMOVE</button>';
+                    row.insertCell(3).innerHTML = itemInCart[index].quantity * bookitems.find(item => item.id == itemInCart[index].id).price; 
+
+                    //Update totalPrice 
+                    totalPrice += itemInCart[index].quantity * bookitems.find(item => item.id == itemInCart[index].id).price;
+                }
+                //--------------------  
+                //Update totalPrice
+                document.getElementById("totalPrice").innerHTML = totalPrice;
+            }
+			
+			//Display all selected and existing items in cart
+			displayCart();
+            //Store this updated itemInCart in localStorage
+			localStorage.setItem("savedIteminShoppingCart", JSON.stringify(itemInCart));
+			
+			//------------------------------------------------------
+            //RemoveItem function 
+            function removeItem(itemID) {       
+                alert("DELETE");          
+                //Remove item from the itemInCart
+                itemInCart = itemInCart.reduce((updatedItems, item) => {
+                    if (item.id != itemID) {
+                        updatedItems.push(item);
+                    }
+                    return updatedItems;
+                }, []);
+                //Display updated itemInCart
+                displayCart(); 
+				//Store this updated itemInCart in localStorage
+				localStorage.setItem("savedIteminShoppingCart", JSON.stringify(itemInCart));
+            }
+            function purchaseItem() {
+        if (itemInCart.length === 0) {
+            alert("Your cart is empty!");
+        } else {
+            alert("Thank you for your purchase!");
+            itemInCart = []; // Clear the cart
+            localStorage.setItem("savedIteminShoppingCart", JSON.stringify(itemInCart)); // Clear local storage
+            displayCart(); // Refresh the cart display
+        }
+    }
+
+        </script>
+
+    </main>
+
+    
+       
+    
+    <footer>
+        
+    
+    </footer>
+   </body>
+   </html>

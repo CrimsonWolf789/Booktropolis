@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Booktropolis</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+    
+        <div class="horizontal-nav">
+    
+            <ul>
+                <li><a href="index.html" class="active" style="color: black; " >HOME</a></li>
+                <li><a style="color: black;">CATAGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black;">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black;">Adventure</a></li>
+                        </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black; background-color: cyan; ">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black; ">CONTACT US</a></li>
+                <li><a href="account.html" style="color: black;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black;"><img src="Images/Cart.jpg" height="20px"></a></li>                
+            </ul>
+            <input type="text" id="searchInput" onchange="displayFilteredItems()">
+    
+        </div>
+
+        <input type="text" id="searchInputPH" onchange="displayFilteredItems()">
+
+        <div id="myNav" class="overlay">
+
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a>CATAGORIES</a>
+            <a href="scifi.html">Sci-Fi</a>
+            <a href="adventure.html">Adventure</a>
+            <a href="about-us.html">ABOUT US</a>
+            <a href="contact-us.html">CONTACT US</a>
+            <a href="account.html">ACCOUNT</a>
+            <a href="cart.html">CART</a>
+        </div>
+        </div>
+
+    </nav>
+        <script>
+
+            function openNav() {
+                document.getElementById("myNav").style.display = "block";
+            }
+        
+        
+            function closeNav() {
+                document.getElementById("myNav").style.display = "none";
+            }
+        
+        </script>
+
+
+
+    
+    <main style="background-image: url('spacebackgrount.jpg');">
+        <br></br>
+        
+        <div class="about-us">
+            <h2>About Our Book Website</h2>
+
+            <p style="font-size: large;">Welcome traveler to Booktropolis, a place where all kinds of scifi and adenture books for you to to read from our selections of choosen books, whethers its a gripping dystopian, a trip across time, the futuristic views of cyberpunk, or prehapes high octain action, a search for lost treasure, or even a dramatic story of survival, we have the selections for you to chose and get lost in the epic stories.
+
+                So set course to the stars, and find your adventure!
+            </p>
+
+        </main>
+
+    
+       
+    
+        <footer>
+            
+        
+        </footer>
+       </body>
+       </html>

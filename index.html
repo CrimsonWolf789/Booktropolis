@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Booktropolis</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+    
+        <div class="horizontal-nav">
+    
+            <ul>
+                <li><a href="index.html" class="active" style="color: black; background-color: cyan;" >HOME</a></li>
+                <li><a style="color: black;">CATAGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black;">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black;">Adventure</a></li>
+                        </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black;">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black;">CONTACT US</a></li>
+                <li><a href="account.html" style="color: black;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black;"><img src="Images/Cart.jpg" height="20px"></a></li>                
+            </ul>
+            <input type="text" id="searchInput" onchange="displayFilteredItems()">
+    
+        </div>
+
+        <input type="text" id="searchInputPH" onchange="displayFilteredItems()">
+
+        <div id="myNav" class="overlay">
+
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a>CATAGORIES</a>
+            <a href="scifi.html">Sci-Fi</a>
+            <a href="adventure.html">Adventure</a>
+            <a href="about-us.html">ABOUT US</a>
+            <a href="contact-us.html">CONTACT US</a>
+            <a href="account.html">ACcOUNT</a>
+            <a href="cart.html">CART</a>
+        </div>
+        </div>
+
+    </nav>
+        <script>
+
+            function openNav() {
+                document.getElementById("myNav").style.display = "block";
+            }
+        
+        
+            function closeNav() {
+                document.getElementById("myNav").style.display = "none";
+            }
+
+            localStorage.setItem("updatedShoppingCart-Daniel", "");
+        
+        </script>
+
+
+
+    
+    <main style="background-image: url('spacebackgrount.jpg');">
+    <h1 style="color: White;">Booktropolis</h1>
+    <section class="slideshow-section">
+        <div class="Slideshow"> 
+            
+            <h4 id="auto-slide-title" style="color: white;">TEST</h4>
+            <div class="image-container">
+                <img id="auto-slide-image" height="200"> 
+            </div> 
+        </div>
+        <div class="newbook">
+            <h2 style="color: white;">New Arrival</h2>
+            <img src="Images/Into-the-sunken-city.jpg" alt="Into the Sunken City" height="200">
+        </div>
+    </section>
+
+    <script src="Books.js">
+    </script>
+    
+    <script>
+        let autoSlideIndex = 0; 
+        //
+        function autoSlideShow() {
+            if (autoSlideIndex < bookitems.length - 1) {
+            autoSlideIndex++;
+            } else { autoSlideIndex = 0;
+            }
+            document.getElementById("auto-slide-title").innerHTML = bookitems[autoSlideIndex].title;
+            document.getElementById("auto-slide-image").src = bookitems[autoSlideIndex].image_url;
+            setTimeout(autoSlideShow, 2000);//Auto change slide every 2 seconds
+        }
+        //
+        autoSlideShow() // Call to run auto slideshow
+    </script>
+
+
+    <section>
+        <h2 style="color: white;">Features</h2>
+        <div id="features"></div>
+    </section>
+
+    <br></br>
+    <br></br>
+    <br></br>
+ 
+    <section>
+        <h2 style="color: white;">Best Sellers</h2>
+        <div id="sold"></div>
+    </section>
+
+    <br></br>
+    <br></br>
+    <br></br>
+ 
+    <section>
+        <h2 style="color: white;">Special Offers</h2>
+        <div id="sales"></div>
+    </section>
+
+    
+    
+
+    <!--Insert data stored in data.js file to this html file-->   
+    
+    <script>
+        //Display all items on webpage
+        function getAllItems(bookitems) {
+            let allItems = "";
+            //Loop throough all items in itemList and extract title, year, image, price
+            for(let i=0; i<bookitems.length; i++) {
+                let item = '<div class="item-card" onclick="showItem(' + bookitems[i].id + ')">' 
+                            +    '<h4 style="white-space: nowrap; overflow: hidden; text-overflow: clip;" >' + bookitems[i].title + '</h4>' 
+                            +    '<p>' + bookitems[i].year + '</p>'
+                            +    '<p>' + categories.find(item => item.id == bookitems[i].category).category  + '</p>'
+                            +    '<img src=' + bookitems[i].image_url + ' height="150" >'
+                            +    '<h3> Price: $' + bookitems[i].price + '</h3>'
+                            + '</div>' 
+                ;
+                allItems += item;
+            }
+            //Return value
+            return allItems;
+        }
+
+
+
+        function showItem(i) {
+            //use localStorage to pass
+            localStorage.setItem('selectedItemID', i);
+            window.open('bookpage.html', '_self');
+        }
+
+
+        //Display all movies in the "items" array inside "itemList" 
+        document.getElementById("features").innerHTML = getAllItems(bookitems);
+        function sortByPrice () {
+            let sortedItems = bookitems.sort((item1, item2) => (item1.price > item2.price) ? 1 : -1 );
+            document.getElementById("sales").innerHTML = getAllItems(bookitems);
+        }
+        sortByPrice();
+        
+        function sortBysales () {
+            let sortedItems = bookitems.sort((item1, item2) => (item1.sold < item2.sold) ? 1 : -1 );
+            document.getElementById("sold").innerHTML = getAllItems(bookitems);
+        }
+        sortBysales();
+
+        //--------------------------------------------------------------------
+        //SEARCH FUNCTION
+        //This function is reponse to the event "change" happening on the "input"
+        function displayFilteredItems() {
+        // Get the keywords from either search input fields
+        let keyword1 = document.getElementById("searchInput").value.toLowerCase();
+        let keyword2 = document.getElementById("searchInputPH").value.toLowerCase();
+        
+        // Determine which field has a value; if both have values, prioritize the first one
+        let keyword = keyword1 ? keyword1 : keyword2;
+
+        // Filter the book items by title containing the keyword
+        let filteredItems = bookitems.filter(item => item.title.toLowerCase().includes(keyword));
+
+        // Display the filtered items in the "features" section
+        document.getElementById("features").innerHTML = getAllItems(filteredItems);
+        
+    }
+
+    // Attach event listeners for both search fields
+    document.getElementById("searchInput").addEventListener("input", displayFilteredItems);
+    document.getElementById("searchInputPH").addEventListener("input", displayFilteredItems);
+
+    </script>
+
+    
+
+
+
+    </main>
+
+    
+       
+    
+    <footer>
+        
+    
+    </footer>
+   </body>
+   </html>

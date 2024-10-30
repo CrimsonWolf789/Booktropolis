@@ -1,0 +1,745 @@
+* {/*star symbol means all HTML elements*/ 
+    box-sizing: border-box;/*Ref: https://www.w3schools.com/css/css3_box-sizing.asp */ 
+    margin: 0; 
+    padding: 0;
+}
+
+
+body { 
+    background-image: url("spacebackgrount.jpg");
+    font-family: Arial, sans-serif;
+}
+
+
+nav { min-height: 5vh; 
+    background-color: yellow;
+}
+
+header { height: 30vh; 
+    color: white; 
+    background-image: url("Image/header-bg-2.gif"); 
+    background-size: cover;
+
+    /*Centralize the content inside this element both vertically and horizontally*/ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+header h1 {
+    color: yellow
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+   }
+   nav ul li {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+   }
+   nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+   } 
+
+   nav ul li a:hover:not(.active) {
+    background-color: gold;
+   }
+
+   nav ul li {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    color: black;
+    /*dropdown menu*/
+    position: relative;
+   }
+
+   .dropdown {
+    background-color: yellow;
+    visibility: hidden; /*Invisible when opening the webpage*/
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease; /*Animation*/
+    left: 0;
+    display: none;
+   } 
+
+   nav ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+   } 
+
+   .dropdown li {
+    width: 100%;
+   } 
+
+   nav {
+    min-height: 5vh; background-color: yellow;
+    /*1: Centralization the primary navbar to center*/ 
+   }
+
+   .horizontal-nav {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    }
+
+    
+
+   nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+   
+    /*1: Centralization the primary navbar to center*/
+    display: inline-block;
+   } 
+
+
+.sandwich-icon-area{
+    font-size: 2em;
+    float: left;
+    cursor: pointer;
+}
+
+.overlay{
+    height: 100%;
+    width: 50%;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0, 0.9);
+    z-index: 1;
+}
+
+.overlay-content{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.overlay a {
+    padding: 6px;
+    text-decoration: none;
+    font-size: 2.0em;
+    color: white;
+    display: block;
+}
+
+.close-icon{
+    position: absolute;
+    top: 1.0em;
+    right: 1.5em;
+    font-size: 4.0em;
+    color: white;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: grey
+}
+
+.main-container {
+    padding: 20px;
+    margin: 20px;
+    background: yellow;
+    border-radius: 8px;
+}
+
+.contact-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.contact-info, .about-website {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+.contact-info h3, .about-website h3 {
+    margin-top: 0;
+}
+
+.form-section {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-section input, .form-section textarea {
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.form-section button {
+    padding: 10px 20px;
+    background-color: yellow;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-section button:hover {
+    background-color: yellow;
+}
+
+main { min-height: 85vh; background: white;
+}
+footer { height: 10vh; background: yellow;
+ display: flex; 
+ justify-content: center; 
+ align-items: center;
+}
+footer p { 
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+} 
+
+.Slideshow {
+    margin-left: 15%;
+}
+
+.newbook {
+    margin-left: 65%;
+    margin-top: -13%;
+}
+
+#features {
+    height: 300px;
+    display: block;
+
+    overflow-x: scroll;
+    overflow-y: hidden;    
+    white-space: nowrap;
+
+}
+
+#sold {
+    height: 300px;
+    display: block;
+
+    overflow-x: scroll;
+    overflow-y: hidden;    
+    white-space: nowrap;
+
+}
+
+#sales {
+    height: 300px;
+    display: block;
+
+    overflow-x: scroll;
+    overflow-y: hidden;    
+    white-space: nowrap;
+
+}
+
+
+
+.one-item-card {
+    background-color: orange;
+    padding: 5px;
+    margin: 5px;
+    width: 90%;
+}
+
+.item-card {
+    display: inline-block;
+    width: 150px;
+    height: 290px;
+    background-color: orange;
+    margin: 10px;
+}
+
+.img-p1 {
+    display: inline-block;
+    padding: 50px;
+}
+
+.p1{
+    display:inline-block;
+    width: 100%;
+    background-color: orange;
+ }
+
+ #searchInputPH {
+    position: relative; left: 40%; top: 5px;
+ }
+
+ 
+ .contact-section {
+    margin-top: 20px;
+    background-color: orange;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.contact-section input, .contact-section textarea {
+    width: 200;
+    margin-right: 110%;
+    padding: 10px;
+    border: 1px solid orangered;
+    border-radius: 5px;
+}
+
+.contact-section button {
+    padding: 10px 20px;
+    background-color: yellow;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.contact-section button:hover {
+    background-color: orange;
+}
+.about-us {
+    background: orange; 
+    padding: 30px;
+    margin-left: 20%;
+    border-radius: 10px;
+    width: 60%;
+}
+
+.about-us h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.book-info {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 20px;
+    gap: 20px; 
+}
+
+
+
+
+.login-box {
+    background-color: orange; 
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid orange;
+    width: 300px;
+    margin-left: 20%; 
+    margin-top: 10%;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-box input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.forgot-password {
+    margin-bottom: 20px;
+    background-color: transparent;
+    border: none;
+    color: blue;
+    cursor: pointer;
+}
+
+.login-box button[type="submit"] {
+    padding: 10px;
+    background-color: yellow;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.register-box {
+    background-color: orange; 
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid orange;
+    width: 300px;
+    margin-left: 50%; 
+    margin-top: -31%; 
+}
+
+.register-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-box label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.register-box input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register-box button[type="submit"] {
+    padding: 10px;
+    background-color: yellow;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#shopping-cart {
+    display: none;
+    margin-top: 40px;
+    background-color: orange; 
+    width: 90%;
+    padding: 10px;
+}
+
+table, th, td {
+    border:1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+table {
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+}
+
+#shopping-cart {
+    width: 70%;
+    margin-left: 20%;
+}
+
+#shopping-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#itemTable {
+    border-collapse: collapse;
+    width: 90%; /* Adjust table width as needed */
+    margin: auto; /* This is to horizontally center the table if not using flexbox */
+}
+
+#itemTable th, #itemTable td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.purchase-section, .purchase-button {
+    margin-top: 20px;
+    text-align: center;
+}
+    
+
+
+
+.purchase-section, .purchase-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+ /*----------------------------------------------------*/
+ /*iPad or tablets*/
+    
+
+@media screen and (min-width: 426px) {
+    main {
+        background-color: white;
+    }
+
+}
+
+
+
+/*-----------------------------------------------------*/
+/*Desktop or PC*/
+@media screen and (min-width: 768px) {
+    .horizontal-nav{
+        display: flex;
+        border: solid 2px red;
+    }
+
+    main {
+        background-color: white;
+    }
+
+    .img-p1 {
+        display: inline-block;
+        padding: 30px;
+    }
+    
+    .p1{
+        display:inline-block;
+        padding: 30px;
+        width: 70%;
+        background-color: orange;
+        vertical-align: top;
+     }
+    
+     #searchInputPH {
+        display: none;
+     }
+     .newbook {
+        display: block;
+     }
+
+     .main-container {
+        padding: 20px;
+        margin: 20px;
+        background: orange;
+        border-radius: 8px;
+    }
+    
+    .contact-section {
+        display: flex;
+        
+        margin-bottom: 20px;
+    }
+    
+    .contact-info, .about-website {
+        width: 48%;
+        padding: 10px;
+        border: 1px solid #000;
+    }
+    
+    .contact-info h3, .about-website h3 {
+        margin-top: 0;
+    }
+    
+    .contact-section {
+        margin-top: 20px;
+        background-color: orange;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .email-section input, .email-sectiontextarea {
+        width: calc(100% - 20px);
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid orangered;
+        border-radius: 5px;
+    }
+    
+    .email-section button {
+        padding: 10px 20px;
+        background-color: #FFD700;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .email-section button:hover {
+        background-color: #FFBF00;
+    }
+    .about-us-container {
+        background: orange; 
+        padding: 30px;
+        margin-left: 20%;
+        border-radius: 10px;
+        width: 60%;
+    }
+    
+    .about-us-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #000;
+    }
+    
+    
+    
+    .content-container {
+        display: flex;
+        justify-content: space-around;
+        padding: 30px;
+        background-color: black;
+        border-radius: 10px;
+    }
+    
+    /* Book Section */
+    .book-section, .price-section, .purchase-section {
+        background-color: white;
+        color: black;
+        padding: 20px;
+        width: 30%;
+        border-radius: 10px;
+    }
+    
+    .book-section h2, .price-section h2, .purchase-section h2 {
+        color: black;
+    }
+    
+    .purchase-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: yellow;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .purchase-button:hover {
+        background-color: #ffa500;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: yellow;
+        color: black;
+        border-radius: 10px;
+    }
+    
+    /* Footer */
+    footer {
+        background-color: yellow;
+        padding: 20px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        margin-top: 20px;
+    }
+
+    
+    .account-container {
+        display: flex;
+        
+        flex-direction: row; 
+        justify-content: center; 
+        align-items: flex-start; 
+        margin-top: 50px;
+        padding: 0 50px;
+    }
+    
+    
+    .form-box {
+        background-color: orange; 
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid #fdd835;
+        width: 300px;
+        margin-right: 30px; 
+    }
+    
+    .form-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .form-box form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-box label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .form-box input {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .forgot-password {
+        margin-bottom: 20px;
+        background-color: transparent;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+    }
+    
+    .form-box button[type="submit"] {
+        padding: 10px;
+        background-color: #fdd835;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    
+
+   
+    #shopping-cart {
+        width: 70%;
+        margin-left: 20%;
+    }
+
+    #shopping-cart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    
+    #itemTable {
+        border-collapse: collapse;
+        width: 90%; 
+        margin: auto;
+    }
+    
+    #itemTable th, #itemTable td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    .purchase-section, .purchase-button {
+        margin-top: 20px;
+        text-align: center;
+    }
+        
+}

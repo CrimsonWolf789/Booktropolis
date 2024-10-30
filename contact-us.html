@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Booktropolis</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+    
+        <div class="horizontal-nav">
+    
+            <ul>
+                <li><a href="index.html" class="active" style="color: black; " >HOME</a></li>
+                <li><a style="color: black;">CATAGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black;">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black;">Adventure</a></li>
+                        </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black; ">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black; background-color: cyan;">CONTACT US</a></li>
+                <li><a href="account.html" style="color: black;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black;"><img src="Images/Cart.jpg" height="20px"></a></li>                
+            </ul>
+            <input type="text" id="searchInput" onchange="displayFilteredItems()">
+    
+        </div>
+
+        <input type="text" id="searchInputPH" onchange="displayFilteredItems()">
+
+        <div id="myNav" class="overlay">
+
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a>CATAGORIES</a>
+            <a href="scifi.html">Sci-Fi</a>
+            <a href="adventure.html">Adventure</a>
+            <a href="about-us.html">ABOUT US</a>
+            <a href="contact-us.html">CONTACT US</a>
+            <a href="account.html">ACCOUNT</a>
+            <a href="cart.html">CART</a>
+        </div>
+        </div>
+
+    </nav>
+        <script>
+
+            function openNav() {
+                document.getElementById("myNav").style.display = "block";
+            }
+        
+        
+            function closeNav() {
+                document.getElementById("myNav").style.display = "none";
+            }
+        
+        </script>
+
+
+
+    
+    <main style="background-image: url('spacebackgrount.jpg');">
+        <div class="main-container">
+            <div class="contact-section">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h3>Contact Number</h3>
+                    <p>+22 590 2087</p>
+                    <h3>Contact Email</h3>
+                    <p>wtait1701@gmail.com</p>
+                    <h3>Physical Address</h3>
+                    <p>48, Margeret Ave, Hawkes Bay, New Zealand</p>
+                </div>
+    
+                <!-- About Website -->
+                <div class="about-website">
+                    <h3>About the website</h3>
+                    <p>This website provides a variety of categories and products that you can browse and purchase online. Our goal is to ensure you have a smooth shopping experience.</p>
+                </div>
+            </div>
+    
+            <!-- Contact Form -->
+            <div class="email-section">
+                <h3>Send a Message</h3>
+                <form>
+                    <label for="email">Email</label><br>
+                    <input type="email" id="email" name="email" placeholder="Your email.."><br>
+    
+                    <label for="phone">Phone Number</label><br>
+                    <input type="tel" id="phone" name="phone" placeholder="Your phone number.."><br>
+    
+                    <label for="message">Message</label><br>
+                    <textarea id="message" name="message" rows="4" placeholder="Write your message here.."></textarea><br>
+    
+                    <button type="button" onclick="sendMessage()">Send</button>
+                </form>
+
+                <script>
+                    function sendMessage() {
+                        const email = document.getElementById('email').value;
+                        const phone = document.getElementById('phone').value;
+                        const message = document.getElementById('message').value;
+                    }
+
+                </script>
+            </div>
+        </div>
+
+
+
+    </main>
+
+    
+       
+    
+    <footer>
+        
+    
+    </footer>
+   </body>
+   </html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booktropolis</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+
+        <div class="horizontal-nav">
+            <ul>
+                <li><a href="index.html" class="active" style="color: black;">HOME</a></li>
+                <li><a style="color: black; background-color: cyan;">CATEGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black; ">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black; background-color: cyan;">Adventure</a></li>
+                    </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black;">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black;">CONTACT US</a></li>
+                <li><a href="account.html" style="color: black;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black;"><img src="Images/Cart.jpg" height="20px"></a></li>
+            </ul>
+            <input type="text" id="searchInput" placeholder="Search books..." onchange="displayFilteredItems()">
+        </div>
+
+        <input type="text" id="searchInputPH" placeholder="Search books..." onchange="displayFilteredItems()">
+
+        <div id="myNav" class="overlay">
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+                <a href="index.html">HOME</a>
+                <a>CATEGORIES</a>
+                <a href="scifi.html">Sci-Fi</a>
+                <a href="adventure.html">Adventure</a>
+                <a href="about-us.html">ABOUT US</a>
+                <a href="contact-us.html">CONTACT US</a>
+                <a href="account.html">ACCOUNT</a>
+                <a href="cart.html">CART</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.display = "none";
+        }
+    </script>
+
+        <main style="background-image: url('spacebackgrount.jpg');">
+        <h1 style="color: White;">Booktropolis</h1>
+
+        <!-- Placeholder to display filtered items -->
+
+        <section>
+            <h2 style="color: white;">Action Adventure</h2>
+            <div id="Action Adventure"></div>
+        </section>
+
+        <section>
+            <h2 style="color: white;">Historical Adventure</h2>
+            <div id="Historical Adventure"></div>
+        </section>
+
+        <section>
+            <h2 style="color: white;">Fantasy Adventure</h2>
+            <div id="Fantasy Adventure"></div>
+        </section>
+
+        <section>
+            <h2 style="color: white;">Survival Stories</h2>
+            <div id="Survival Stories"></div>
+        </section>
+
+        <section>
+            <h2 style="color: white;">Treasure Hunts</h2>
+            <div id="Treasure Hunts"></div>
+        </section>
+
+        <script src="Books.js"></script> <!-- Load book data before script execution -->
+
+        <script>
+            function getAllItems(bookitems) {
+            let allItems = "";
+            //Loop throough all items in itemList and extract title, year, image, price
+            for(let i=0; i<bookitems.length; i++) {
+                let item = '<div class="item-card" onclick="showItem(' + bookitems[i].id + ')">' 
+                            +    '<h4 style="white-space: nowrap; overflow: hidden; text-overflow: clip;" >' + bookitems[i].title + '</h4>' 
+                            +    '<p>' + bookitems[i].year + '</p>'
+                            +    '<p>' + categories.find(item => item.id == bookitems[i].category).category  + '</p>'
+                            +    '<img src=' + bookitems[i].image_url + ' height="150" >'
+                            +    '<h3> Price: $' + bookitems[i].price + '</h3>'
+                            + '</div>' 
+                ;
+                allItems += item;
+            }
+            //Return value
+            return allItems;
+        }
+
+
+
+        function showItem(i) {
+            //use localStorage to pass
+            localStorage.setItem('selectedItemID', i);
+            window.open('bookpage.html', '_self');
+        }
+
+                
+
+                // Display items based on category
+                // Display items based on category
+		function displayBooksByCategory(categoryID, bookList) {
+			let categoryItems = "";
+			for (let i = 0; i < bookList.length; i++) {
+				if (bookList[i].category === categoryID) {
+					let item = '<div class="item-card" onclick="showItem(' + bookList[i].id + ')">' +
+						'<h4 style="white-space: nowrap; overflow: hidden; text-overflow: clip;">' + bookList[i].title + '</h4>' +
+						'<p>' + bookList[i].year + '</p>' +
+						'<img src=' + bookList[i].image_url + ' height="150" >' +
+						'<h3> Price: $' + bookList[i].price + '</h3>' +
+						'</div>';
+					categoryItems += item;
+				}
+			}
+			return categoryItems;
+			//document.getElementById(elementID).innerHTML = categoryItems;
+		}
+
+                document.getElementById("Action Adventure").innerHTML = displayBooksByCategory(6, bookitems);
+                
+                //displayBooksByCategory(2, "Dystopian");    // Dystopian
+                document.getElementById("Historical Adventure").innerHTML = displayBooksByCategory(7, bookitems);
+                
+                //displayBooksByCategory(3, "Cyberpunk");    // Cyberpunk
+                document.getElementById("Fantasy Adventure").innerHTML = displayBooksByCategory(8, bookitems);
+                
+                //displayBooksByCategory(4, "Timetravel");    // Time Travel
+                document.getElementById("Survival Stories").innerHTML = displayBooksByCategory(9, bookitems);
+                
+                //displayBooksByCategory(5, "Alien Invasion");// Alien Invasion
+                document.getElementById("Treasure Hunts").innerHTML = displayBooksByCategory(10, bookitems);
+
+
+		// Attach event listeners for search inputs
+		document.getElementById("searchInput").addEventListener("input", displayFilteredItems);
+		document.getElementById("searchInputPH").addEventListener("input", displayFilteredItems);
+		
+		// Search function
+		function displayFilteredItems() {
+			let keyword1 = document.getElementById("searchInput").value.toLowerCase();
+			let keyword2 = document.getElementById("searchInputPH").value.toLowerCase();
+			let keyword = keyword1 || keyword2;
+		   
+
+			//let filteredItems = bookitems.filter(item => item.title.toLowerCase().includes(keyword));			
+			//document.getElementById("Space-Opera").innerHTML = getAllItems(filteredItems);			
+			document.getElementById("Action Adventure").innerHTML = displayBooksByCategory(6, bookitems.filter(item=>item.category==6)
+																								  .filter(item =>item.title.toLowerCase().includes(keyword)));				
+			//document.getElementById("Dystopian").innerHTML = getAllItems(filteredItems);
+			document.getElementById("Historical Adventure").innerHTML = displayBooksByCategory(7, bookitems.filter(item=>item.category==7)
+																								  .filter(item =>item.title.toLowerCase().includes(keyword)));							
+			//document.getElementById("Cyberpunk").innerHTML = getAllItems(filteredItems);
+			document.getElementById("Fantasy Adventure").innerHTML = displayBooksByCategory(8, bookitems.filter(item=>item.category==8)
+																								  .filter(item =>item.title.toLowerCase().includes(keyword)));				
+			
+			//document.getElementById("Timetravel").innerHTML = getAllItems(filteredItems);
+			document.getElementById("Survival Stories").innerHTML = displayBooksByCategory(9, bookitems.filter(item=>item.category==9)
+																								  .filter(item =>item.title.toLowerCase().includes(keyword)));				
+			
+			//document.getElementById("Alien Invasion").innerHTML = getAllItems(filteredItems);.
+			document.getElementById("Treasure Hunts").innerHTML = displayBooksByCategory(10, bookitems.filter(item=>item.category==10)
+																								  .filter(item =>item.title.toLowerCase().includes(keyword)));							
+		}
+        </script>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+
+</html>

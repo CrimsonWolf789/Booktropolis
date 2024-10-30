@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Booktropolis</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+    
+        <div class="horizontal-nav">
+    
+            <ul>
+                <li><a href="index.html" class="active" style="color: black; " >HOME</a></li>
+                <li><a style="color: black;">CATAGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black;">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black;">Adventure</a></li>
+                        </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black; ">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black; ">CONTACT US</a></li>
+                <li><a href="account.html" style="color: black; background-color: cyan;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black;"><img src="Images/Cart.jpg" height="20px"></a></li>                
+            </ul>
+            <input type="text" id="searchInput" onchange="displayFilteredItems()">
+    
+        </div>
+
+        <input type="text" id="searchInputPH" onchange="displayFilteredItems()">
+
+        <div id="myNav" class="overlay">
+
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a>CATAGORIES</a>
+            <a href="scifi.html">Sci-Fi</a>
+            <a href="adventure.html">Adventure</a>
+            <a href="about-us.html">ABOUT US</a>
+            <a href="contact-us.html">CONTACT US</a>
+            <a href="account.html">ACCOUNT</a>
+            <a href="cart.html">CART</a>
+        </div>
+        </div>
+
+    </nav>
+        <script>
+
+            function openNav() {
+                document.getElementById("myNav").style.display = "block";
+            }
+        
+        
+            function closeNav() {
+                document.getElementById("myNav").style.display = "none";
+            }
+        
+        </script>
+
+
+
+    
+    <main style="background-image: url('spacebackgrount.jpg');">
+        <div class="acount-container">
+            <!-- Login Form -->
+            <div class="login-box">
+                <h2>Log In</h2>
+                <form>
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username">
+                    
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password">
+                    
+                    <button class="forgot-password">Forgot Password</button>
+                    <button type="submit">Log In</button>
+                </form>
+            </div>
+    
+            <!-- Register Form -->
+            <div class="register-box">
+                <h2>Register</h2>
+                <form>
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" name="username">
+                    
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" name="email">
+                    
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="password">
+                    
+                    <button type="submit">Create Account</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            // Register function
+            document.querySelector('.register-box form').addEventListener('submit', function(event) {
+                event.preventDefault();
+            
+                let username = document.getElementById('register-username').value;
+                let email = document.getElementById('register-email').value;
+                let password = document.getElementById('register-password').value;
+            
+                if (username === "" || email === "" || password === "") {
+                    alert("Please fill in all the required fields");
+                    return
+                }
+            
+            
+                // Save the user data to localStorage (insecure for real applications)
+                let userData = {
+                    username: username,
+                    email: email,
+                    password: password
+                };
+            
+                localStorage.setItem('userData', JSON.stringify(userData));
+                alert("Registration has been successful");
+                document.querySelector('.register-box form').reset();
+            });
+            
+            // Login function
+            document.querySelector('.login-box form').addEventListener('submit', function(event) {
+                event.preventDefault();
+            
+                let loginUsername = document.getElementById('login-username').value;
+                let loginPassword = document.getElementById('login-password').value;
+            
+                let savedUserData = JSON.parse(localStorage.getItem('userData'));
+            
+                if (!savedUserData) {
+                    alert("No registered user found, try signing in");
+                return
+                }
+                
+
+                
+            
+                if (loginUsername === savedUserData.username && loginPassword === savedUserData.password) {
+                    alert("Login successful. Welcome, " + loginUsername + "!");
+                    
+                } else {
+                    alert("Invalid username or password. Please try again.");
+                }
+            });
+            
+            </script>
+
+    </main>
+
+    
+       
+    
+    <footer>
+        
+    
+    </footer>
+   </body>
+   </html>

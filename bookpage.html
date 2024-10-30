@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booktropolis</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="sandwich-icon-area">
+            <p onclick="openNav()"> &#9776;</p>
+        </div>
+    
+        <div class="horizontal-nav">    
+            <ul>
+                <li><a href="Home.html" class="active" style="color: black;" >HOME</a></li>
+                <li><a style="color: black;">CATAGORIES</a>
+                    <ul class="dropdown">
+                        <li><a href="scifi.html" style="color: black;">Sci-Fi</a></li>
+                        <li><a href="adventure.html" style="color: black;">Adventure</a></li>
+                    </ul>
+                </li>
+                <li><a href="about-us.html" style="color: black;">ABOUT US</a></li>
+                <li><a href="contact-us.html" style="color: black;">CONTACT US</a></li>
+                <li><a href="acount.html" style="color: black;">ACCOUNT</a></li>
+                <li><a href="cart.html" style="color: black;"><img src="Images/Cart.jpg" height="30px"></a></li>                
+            </ul>
+            <input type="text" id="searchInput" onchange="displayFilteredItems()">
+        </div>
+
+        <div id="myNav" class="overlay">
+            <p class="close-icon" onclick="closeNav()"> &times; </p>
+            <div class="overlay-content">
+                <a href="Home.html">HOME</a>
+                <a>CATAGORIES</a>
+                <a href="scifi.html">Sci-Fi</a>
+                <a href="adventure.html">Adventure</a>
+                <a href="about-us.html">ABOUT US</a>
+                <a href="contact-us.html">CONTACT US</a>
+                <a href="account.html">ACCOUNT</a>
+            </div>
+        </div>
+    </nav>
+        
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.display = "block";
+        }
+    
+        function closeNav() {
+            document.getElementById("myNav").style.display = "none";
+        }
+    </script>
+    
+
+    <main style="background-image: url('spacebackgrount.jpg');">
+        <br></br>
+        <div id="itemDetail"></div>
+    
+        <script src="Books.js"></script>    
+        <script>
+            //On PAGE 2: itempage.html 
+            //Get stored values
+            let itemID = localStorage.getItem('selectedItemID'); 
+    
+            //Get all comments
+            function getAllComments(allComments){
+                let getComments = '';
+                for(let i=0; i < allComments.length; i++){
+                    getComments+= '<p>' + allComments[i].user + ': ' +  allComments[i].comment + '</p>';
+                }
+                return '<div id="commentID" style="font-style: italic;">' + getComments + '</div>';
+            }
+    
+            //
+            document.getElementById("itemDetail").innerHTML = 
+                 '<div class="one-item-card">'
+                + '<div class="img-p1">'    
+                +  '<img src=' +  bookitems.find(item => item.id == itemID).image_url + ' height="400">'
+                +  '</div>'
+                +  '<div class="p1">'
+                +     '<h4>' + bookitems.find(item => item.id == itemID).title + '</h4>'
+                +     '<h4>' + bookitems.find(item => item.id == itemID).author + '</h4>'
+                +           '<br><br>'
+                +     '<p>Year: ' + bookitems.find(item => item.id == itemID).year + '</p>'
+                +  '<br><br>'
+                +     '<p>Description: ' + bookitems.find(item => item.id == itemID).description + '</p>'  
+                +  '<br><br>'
+                +     '<h3 style="color: red;">Price: $' + bookitems.find(item => item.id == itemID).price + '</h3>'
+                +  '</div>'
+
+                +  '<br><br>'
+                +  '<h4>RATING: </h4>'
+                +  '<button id="likeBtn">&#128077;</button>' 
+				+  '<p id="likeNumber" style="display: inline-block; margin-right: 20px;">' + votes.find(item => item.id == itemID).like + '</p>'
+                +  '<button id="dislikeBtn">&#128078;</button>' 
+				+  '<p id="dislikeNumber" style="display: inline-block;">' + votes.find(item => item.id == itemID).dislike + '</p>'
+                +  '<br> <br>'
+                +  '<h4>COMMENTS: </h4>'
+                +  getAllComments(comments.find(item => item.id == itemID).comments)
+                +'</div>' ;
+        </script>
+
+        <button onclick="addToCart()">Add to Cart</button>
+
+        <script>            
+            function addToCart() {
+                //use localStorage to store selected item and pass this to cart page
+                localStorage.setItem('addToCartItemID', itemID);
+                window.open('cart.html', "_self");
+            }
+        </script>
+
+
+        <!--Add a new comment-->
+        <section> 
+            <h2 style="margin-top: 1.0em; color: white;">ADD A NEW COMMENT</h2>     
+            <label style="color: white;">Name: </label>
+            <input type="text" id="comment_name" placeholder="your name" size="45">
+            <br>
+            <label style="color: white;">Comment: </label><br>
+            <textarea id="comment_text" cols="50" rows="10">
+            </textarea>
+            <br>
+            <button onclick="addComment()">POST</button>                      
+        </section>
+        
+        
+
+        <script>
+
+            //------------------------------------------
+            //Add a new comment
+            function addComment() { 
+                //Get entered value/data by user
+                let enteredCommentName = document.getElementById("comment_name").value;
+                let enteredCommentText = document.getElementById("comment_text").value; 
+                
+                if (enteredCommentName.trim() == "" || enteredCommentText.trim() =="") {
+                    alert("Please enter both your name and comment!");
+                } else {
+                    //Display this new comment on HTML page 
+                    let newComment = document.createElement("p");
+                    newComment.textContent = enteredCommentName + ': ' +  enteredCommentText;
+
+                    document.getElementById("commentID").appendChild(newComment);
+                    //document.getElementById("commentID").append(enteredCommentName + ': ' +  enteredCommentText);
+
+                    //Add this new comment to the array and update DATABASE
+                    //allComments.push({name: enteredCommentName, comment: enteredCommentText});  
+                    alert("Thank you for your comment!");
+
+                    //Clear comment box
+                    document.getElementById("comment_name").value = "";
+                    document.getElementById("comment_text").value = "";
+                }
+            } 
+
+            //-------------------------------------
+            //Vote
+            //Variables to track the clicking status
+            //RULE: Allow to vote only one: UP or DOWN
+            let currentVotes = {like: votes.find(item => item.id == itemID).like, 
+                                dislike: votes.find(item => item.id == itemID).dislike };
+            let voteStatus = {like: false, dislike: false};
+
+            document.getElementById("likeBtn").addEventListener("click", function() {
+                //Check current status of "like" button (has been clicked or not)
+                //alert('Click LIke');
+                if (voteStatus.like == false) {
+                    //Increase a "Like": Increase the like number by 1
+                    document.getElementById("likeNumber").innerHTML = currentVotes.like + 1;
+                    //Change the background color of Like button to GREEN
+                    document.getElementById("likeButton").style.backgroundColor = "green";
+                    //Change the current status of "like" button: has been clicked
+                    voteStatus.like = true;//
+                    
+                    //Check "dislike" status - if dislike has been voted, down it by one & change status to False & change background color to white
+                    if (voteStatus.dislike == true) {
+                        document.getElementById("dislikeNumber").innerHTML = currentVotes.dislike;
+                    voteStatus.dislike = false;//
+                        document.getElementById("dislikeButton").style.backgroundColor = "white";
+                    }   
+
+                } else {
+                    //Keep the current number of like
+                    document.getElementById("likeNumber").innerHTML = currentVotes.like;
+                    //Change the background color of Like button to WHITE
+                    document.getElementById("likeButton").style.backgroundColor = "white";
+                    //Change the current status of "like" button
+                    voteStatus.like = false;//has been clicked  
+                } 
+            });
+
+            document.getElementById("dislikeBtn").addEventListener("click", function() {
+                //alert('Click DisLIke');
+                //Check current status of "dislike" button (has been clicked or not)
+                if (voteStatus.dislike == false) {
+                    //Increase a "disLike"  by 1
+                    document.getElementById("dislikeNumber").innerHTML = currentVotes.dislike + 1;
+                    //Change the background color of Like button to GREEN
+                    document.getElementById("dislikeButton").style.backgroundColor = "green";
+                    //Change the current status of "dislike" button
+                    voteStatus.dislike = true;//has been clicked
+                    
+                    //Check "like" status - if like has been voted, down it by one & change status to False & change background color to white
+                    if (voteStatus.like == true) {
+                    document.getElementById("likeNumber").innerHTML = currentVotes.like;
+                    voteStatus.like = false;//
+                    document.getElementById("likeButton").style.backgroundColor = "white";
+                    }
+                    
+                } else {
+                    //Keep the current number of of "dislike"
+                    document.getElementById("dislikeNumber").innerHTML = currentVotes.dislike;
+                    //Change the background color of disLike button to WHITE
+                    document.getElementById("dislikeButton").style.backgroundColor = "white";
+                    //Change the current status of "dislike" button
+                    voteStatus.dislike = false;//has been clicked 
+                } 
+
+            });
+
+
+        </script>
+
+</main>
+
+    
+       
+    
+<footer>
+    
+
+</footer>
+</body>
+</html>
